@@ -1,3 +1,4 @@
+<script>
     var historyEntries = [];
     var totalAllData = 0;
     var timerInterval;
@@ -77,3 +78,4 @@
 
       timerElement.innerText = formattedTime;
     }
+  </script
