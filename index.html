@@ -116,7 +116,7 @@
     </div>
 
     <div class="timer">
-      <div id="timer">00:05:00</div>
+      <div id="timer">00:00:00</div>
       <div class="timer-buttons">
         <button onclick="startTimer()">Mulai Timer</button>
         <button onclick="stopTimer()">Stop Timer</button>
@@ -162,49 +162,58 @@
     }
 
     function startTimer() {
+  clearInterval(timerInterval);
+
+  var hours = parseInt(document.getElementById('hours').value) || 0;
+  var minutes = parseInt(document.getElementById('minutes').value) || 0;
+  var seconds = parseInt(document.getElementById('seconds').value) || 0;
+
+  // Gunakan lastTimerValue jika tidak nol
+  if (lastTimerValue !== 0) {
+    timerValue = lastTimerValue;
+  } else {
+    timerValue = hours * 3600 + minutes * 60 + seconds;
+  }
+
+  updateTimerDisplay();
+
+  timerInterval = setInterval(function() {
+    timerValue--;
+    if (timerValue < 0) {
       clearInterval(timerInterval);
-
-      var hours = parseInt(document.getElementById('hours').value) || 0;
-      var minutes = parseInt(document.getElementById('minutes').value) || 0;
-      var seconds = parseInt(document.getElementById('seconds').value) || 0;
-
-      timerValue = hours * 3600 + minutes * 60 + seconds;
-
-      timerInterval = setInterval(function() {
-        timerValue--;
-        if (timerValue < 0) {
-          clearInterval(timerInterval);
-          timerValue = 0;
-          updateTimerDisplay();
-        } else {
-          updateTimerDisplay();
-        }
-      }, 1000);
+      timerValue = 0;
+      updateTimerDisplay();
+    } else {
+      updateTimerDisplay();
     }
+  }, 1000);
+}
 
     function stopTimer() {
-      clearInterval(timerInterval);
-    }
+  clearInterval(timerInterval)
+  lastTimerValue = timerValue;
+  updateTimerDisplay();
+}
 
     function resetTimer() {
       clearInterval(timerInterval);
-      timerValue = 300;
+      timerValue = 0;
       updateTimerDisplay();
     }
 
     function updateTimerDisplay() {
-      var timerElement = document.getElementById('timer');
-      var hours = Math.floor(timerValue / 3600);
-      var minutes = Math.floor((timerValue % 3600) / 60);
-      var seconds = timerValue % 60;
+  var timerElement = document.getElementById('timer');
+  var hours = Math.floor(timerValue / 3600);
+  var minutes = Math.floor((timerValue % 3600) / 60);
+  var seconds = timerValue % 60;
 
-      var formattedTime = 
-        (hours < 10 ? '0' : '') + hours + ':' +
-        (minutes < 10 ? '0' : '') + minutes + ':' +
-        (seconds < 10 ? '0' : '') + seconds;
+  var formattedTime = 
+    ('0' + hours).slice(-2) + ':' +
+    ('0' + minutes).slice(-2) + ':' +
+    ('0' + seconds).slice(-2);
 
-      timerElement.innerText = formattedTime;
-    }
+  timerElement.innerText = formattedTime;
+}
   </script>
 </body>
 </html>
