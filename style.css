@@ -1,6 +1,5 @@
-/* Kode CSS */
-body {
-   body {
+<style>
+    body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       text-align: center;
       margin: 20px;
@@ -92,6 +91,4 @@ body {
         width: calc(33.33% - 10px);
       }
     }
-}
-
-/* ... (tambahkan kode CSS lainnya) */
+  </style>
